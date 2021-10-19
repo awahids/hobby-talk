@@ -68,6 +68,9 @@ module.exports = {
                     "email": 1,
                     "avatar": 1
                 }
+            }, {
+                path: "category",
+                models: "Category"
             }, "commentCount", "likeCount", "dislikeCount"]).limit(limit).skip(limit * (page - 1))
             const count = await Threads.count()
 
@@ -118,6 +121,9 @@ module.exports = {
                         "email": 1,
                         "avatar": 1
                     }
+                }, {
+                    path: "category",
+                    models: "Category"
                 }, "commentCount", "likeCount", "dislikeCount"]).limit(limit).skip(limit * (page - 1))
             const comments = await Comments.find({ threadId: threads.id })
             const count = await Threads.count({ "title": { $regex: new RegExp(keyword, "gi") } })
@@ -437,7 +443,10 @@ module.exports = {
                         "email": 1,
                         "avatar": 1
                     }
-                }).populate(["commentCount", "likeCount", "dislikeCount"])
+                }).populate([{
+                    path: "category",
+                    models: "Category"
+                }, "commentCount", "likeCount", "dislikeCount"])
                 if (!findThread) {
                     return res.status(400).json({
                         status: 'failed',
@@ -479,6 +488,9 @@ module.exports = {
                     "email": 1,
                     "avatar": 1
                 }
+            }, {
+                path: "category",
+                models: "Category"
             }, "commentCount", "likeCount", "dislikeCount"]).limit(limit).skip(limit * (page - 1))
             const comments = await Comments.find({ threadId: thread.id })
             const count = await Threads.count()
@@ -586,6 +598,9 @@ module.exports = {
                     "email": 1,
                     "avatar": 1
                 }
+            }, {
+                path: "category",
+                models: "Category"
             }, "commentCount", "likeCount", "dislikeCount"]).limit(limit).skip(limit * (page - 1))
             const comments = await Comments.find({ threadId: thread.id })
             const count = await Threads.count()
@@ -684,6 +699,9 @@ module.exports = {
                     "email": 1,
                     "avatar": 1
                 }
+            }, {
+                path: "category",
+                models: "Category"
             }, "comment", "commentCount", "likeCount", "dislikeCount"])
             let sekarang = date.getTime()
             let setelah = date.setTime(date.getTime() - (12 * 60 * 60 * 1000))
