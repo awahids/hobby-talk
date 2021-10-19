@@ -4,7 +4,7 @@
     "description": "Make a social media app named HobbyTalk",
     "main": "index.js",
     "scripts": {
-        "test": "jest --detectOpenHandles",
+        "test": "jest",
         "start": "node index"
     },
     "repository": {
