@@ -6,11 +6,8 @@ const db = require('./db/database')
 const passport = require('./middlewares/passport')
 const session = require('cookie-session')
 const cors = require('cors')
-<<<<<<< HEAD
 
 
-=======
->>>>>>> c48d9d14217ebac5a617a5895eac04b1ac737d26
 app.use(cors())
 app.use(express.json())
 db()
