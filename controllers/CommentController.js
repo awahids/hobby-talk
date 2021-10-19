@@ -26,7 +26,8 @@ module.exports = {
                 await threads.save()
                 return res.status(201).json({
                     status: "success",
-                    message: "Comment created successfully"
+                    message: "Comment created successfully",
+                    data: saveComment
                 });
             } else {
                 return res.status(400).json({
