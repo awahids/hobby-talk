@@ -443,10 +443,10 @@ module.exports = {
                         "email": 1,
                         "avatar": 1
                     }
-                }).populate({
+                }).populate([{
                     path: "category",
                     models: "Category"
-                }, ["commentCount", "likeCount", "dislikeCount"])
+                }, "commentCount", "likeCount", "dislikeCount"])
                 if (!findThread) {
                     return res.status(400).json({
                         status: 'failed',
