@@ -26,7 +26,7 @@ app.get('/', (req, res) => {
         message: "server connected"
     })
 })
-
+module.exports = app
 app.listen(port, () => {
     console.log(`Server listening on port ${port}`)
 })
