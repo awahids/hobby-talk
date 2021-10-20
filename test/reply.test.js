@@ -13,39 +13,16 @@ afterEach((done) => {
     mongoose.connection.close(() => done());
 });
 
-
-test("GET /api/v1/comments/616a814e2d9ef9e211bb0328", async() => {
+test("GET /api/v1/reply/616a948727abbfa2c1dab890", async() => {
     await supertest(app)
-        .get("/api/v1/comments/616a814e2d9ef9e211bb0328")
+        .get("/api/v1/reply/616a948727abbfa2c1dab890")
         .expect(200)
         .then((res) => {
             expect(Array.isArray(res.body.data)).toBeTruthy();
         });
 });
 
-test("POST /api/v1/comments/616a814e2d9ef9e211bb0328", async() => {
-    const data = {
-        content: "wahh mantep nih"
-    };
-    const status = {
-        status: "success"
-    }
-    const token = await supertest(app).post("/api/v1/users/login").send({
-        email: "kuromashiro0123@gmail.com",
-        password: "password",
-    });
-    await supertest(app)
-        .post("/api/v1/comments/616a814e2d9ef9e211bb0328")
-        .set("Authorization", "Bearer " + token.body.data)
-        .send(data)
-        .expect(201)
-        .then((res) => {
-            expect(res.body.status).toBe(status.status);
-        });
-})
-
-
-test("PUT /api/v1/comments/:id", async() => {
+test("PUT /api/v1/reply/:id", async() => {
     const updateData = {
         content: "update comment ahh",
     };
@@ -56,7 +33,7 @@ test("PUT /api/v1/comments/:id", async() => {
         password: "password",
     });
     await supertest(app)
-        .put("/api/v1/comments/616e540895d02383ce454957")
+        .put("/api/v1/reply/616a97e2f8ee71e6330a64b1")
         .set("Authorization", "Bearer " + token.body.data)
         .send(updateData)
         .expect(201)
@@ -65,24 +42,21 @@ test("PUT /api/v1/comments/:id", async() => {
         });
 
 })
-
-
-test("DELETE /api/v1/comment/:id", async() => {
+test("DELETE /api/v1/reply/:id", async() => {
     const data = {
-        content: "ini adalah comment"
+        content: "ini adalah reply"
     };
     const token = await supertest(app).post("/api/v1/users/login").send({
         email: "kuromashiro0123@gmail.com",
         password: "password",
     });
-    const createComment = await supertest(app)
-        .post("/api/v1/comments/616a814e2d9ef9e211bb0328")
+    const createReply = await supertest(app)
+        .post("/api/v1/reply/616a948727abbfa2c1dab890")
         .set("Authorization", "Bearer " + token.body.data)
         .send(data)
-
-
+    console.log(createReply.body)
     await supertest(app)
-        .delete("/api/v1/comments/" + createComment.body.data._id)
+        .delete("/api/v1/reply/" + createReply.body.data._id)
         .set("Authorization", "Bearer " + token.body.data)
         .expect(200)
         .then((res) => {
