@@ -26,7 +26,8 @@ module.exports = {
                 await findReply.save()
                 return res.status(201).json({
                     status: "success",
-                    message: "subReply created successfully"
+                    message: "subReply created successfully",
+                    data: saveSubReply
                 });
             } else {
                 return res.status(400).json({

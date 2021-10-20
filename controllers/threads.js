@@ -44,7 +44,8 @@ module.exports = {
             await user.save()
             return res.status(200).json({
                 status: "success",
-                message: "success created thread"
+                message: "success created thread",
+                data: createthread
             })
 
         } catch (err) {

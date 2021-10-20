@@ -71,6 +71,7 @@ module.exports = {
             res.status(200).json({
                 status: "Success",
                 message: "Succes Sign Up, check your Email",
+                data: signUp
             })
 
         } catch (error) {
