@@ -16,7 +16,7 @@ afterEach((done) => {
 test("POST /api/v1/users/signup", async() => {
     const data = {
         name: "mamang capron",
-        email: "iniemailsaya6@gmail.com",
+        email: "iniemailsaya1@gmail.com",
         password: "password"
     };
     const status = {
@@ -74,24 +74,24 @@ test("GET /api/v1/users/user/:id", async() => {
         });
 })
 
-test("PUT /api/v1/users/likecategories", async() => {
-    const status = "Success"
-    const data = {
-        categoryId: ["6166eec398472010a2d7e97c"]
-    }
+// test("PUT /api/v1/users/likecategories", async() => {
+//     const status = "Success"
+//     const data = {
+//         categoryId: ["6166eec398472010a2d7e97c"]
+//     }
 
-    const token = await supertest(app).post("/api/v1/users/login").send({
-        email: "kuromashiro0123@gmail.com",
-        password: "password",
-    })
+//     const token = await supertest(app).post("/api/v1/users/login").send({
+//         email: "kuromashiro0123@gmail.com",
+//         password: "password",
+//     })
 
-    await supertest(app)
-        .put("/api/v1/users/likecategories")
-        .set("Authorization", "Bearer " + token.body.data)
-        .send(data)
-        .expect(200)
-        .then((res) => {
-            expect(res.body.status).toBe(status)
-        })
+//     await supertest(app)
+//         .put("/api/v1/users/likecategories")
+//         .set("Authorization", "Bearer " + token.body.data)
+//         .send(data)
+//         .expect(200)
+//         .then((res) => {
+//             expect(res.body.status).toBe(status)
+//         })
 
-})
+// })
