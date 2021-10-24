@@ -5,6 +5,7 @@ const { authToken } = require('../middlewares/auth')
 const cloudUpload = require('../middlewares/cloudUpload')
 const ThreadsCategory = require('../controllers/ThreadCategory')
 
+<<<<<<< HEAD
 router.post('/create', authToken, cloudUpload('image'), thread.createThreads)//
 router.get('/oldest', thread.readAllThreads) //
 router.get('/search/:keyword', thread.searchThreads)//
@@ -17,6 +18,20 @@ router.get('/trending', thread.getThreadTrending)//
 router.get('/mostpopular', thread.getThreadMostPopular)//
 router.get('/mightlike', authToken, thread.mightLike)//
 router.get('/hot', thread.getThreadHot)//
+=======
+router.post('/create', authToken, cloudUpload('image'), thread.createThreads)
+router.get('/oldest', thread.readAllThreads)
+router.get('/search/:keyword', thread.searchThreads)
+router.put('/edit/:id', authToken, cloudUpload('image'), thread.updateThreads)
+router.delete('/delete/:id', authToken, thread.deleteThreads)
+router.get('/get/:id', thread.getOneThread)
+router.get('/newest', thread.getThreadNewest)
+router.get('/more/:userId/:threadId', thread.moreFromUser)
+router.get('/trending', thread.getThreadTrending)
+router.get('/mostpopular', thread.getThreadMostPopular)
+router.get('/mightlike', authToken, thread.mightLike)
+router.get('/hot', thread.getThreadHot)
+>>>>>>> 02cafe8c6aac21a8bf9568414aa0b6146a6ca9e8
 router.get('/relatedtopic/:id', thread.relatedTopic)
 
 router.put('/upvote/:id', authToken, thread.addLikes)

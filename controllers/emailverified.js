@@ -101,7 +101,7 @@ module.exports = {
             }
 
             //method sign dari jwt
-            res.redirect('https://dev-hoobytalks.herokuapp.com/login')
+            res.redirect('https://dev-hoobytalks.herokuapp.com/account/login')
 
         } catch (error) {
             console.log(error)
