@@ -7,20 +7,36 @@ jest.mock("../../models/SubReply")
 jest.mock('../../models/Reply')
 
 let req, res, next;
-const replyId = "12345412948239432423";
+const replyId = "616a97e2f8ee71e6330a64b1";
+
 
 beforeEach(() => {
     req = httpMocks.createRequest();
+    req.user = {
+        id: "12345412948239432423"
+    }
+    req.params.replyId = replyId
     res = httpMocks.createResponse();
     next = jest.fn();
+
 })
 
-describe("SubReplyController.readAll", () => {
 
-    it("should handle errors in readAllSubReply", async() => {
-        const rejectedPromise = Promise.reject();
-        SubReply.find.mockReturnValue(rejectedPromise);
-        await SubReplyController.readAllSubReply(req, res, next);
-        expect(res.statusCode).toBe(500);
+
+describe("SubReplyController.create", () => {
+
+    it("should return 400 when item doesnt exist", async() => {
+        Reply.findById.mockReturnValue(null);
+        await SubReplyController.createSubReply(req, res, next);
+        expect(res.statusCode).toBe(400)
+        expect(res._isEndCalled()).toBeTruthy();
+        expect(res._getJSONData().message).toBe("cannot find reply")
     });
+
+    it("should return 400 when id is not object id", async() => {
+        req.params.replyId = "123123123"
+        await SubReplyController.createSubReply(req, res, next)
+        expect(res.statusCode).toBe(400)
+        expect(res._getJSONData().message).toBe("Reply not found or doesn't exist")
+    })
 });

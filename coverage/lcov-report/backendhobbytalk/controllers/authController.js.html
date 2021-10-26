@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">52.63% </span>
+                <span class="strong">64.91% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>30/57</span>
+                <span class='fraction'>37/57</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">37.5% </span>
+                <span class="strong">43.75% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>6/16</span>
+                <span class='fraction'>7/16</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">52.63% </span>
+                <span class="strong">64.91% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>30/57</span>
+                <span class='fraction'>37/57</span>
             </div>
         
             
@@ -282,38 +282,38 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -465,18 +465,18 @@ module.exports = {
                 email: email
             })
 &nbsp;
-            if (checkEmail) {
-                return res.status(400).json({
+            <span class="missing-if-branch" title="if path not taken" >I</span>if (checkEmail) {
+<span class="cstat-no" title="statement not covered" >                return res.status(400).json({</span>
                     status: "failed",
                     message: `This email ${email} address is already associated with another account`
                 })
             }
 &nbsp;
-            const hashPassword = <span class="cstat-no" title="statement not covered" >await authHash(password)</span>
+            const hashPassword = await authHash(password)
 &nbsp;
-            const verifCode = <span class="cstat-no" title="statement not covered" >generateVerifCode(10)</span>
+            const verifCode = generateVerifCode(10)
 &nbsp;
-            const signUp = <span class="cstat-no" title="statement not covered" >await Users.create({</span>
+            const signUp = await Users.create({
                 name,
                 email,
                 avatar: "",
@@ -484,20 +484,20 @@ module.exports = {
                 password: hashPassword,
                 verifCode
             })
-<span class="cstat-no" title="statement not covered" >            console.log("🚀 ~ file: authController.js ~ line 51 ~ signUp: ~ signUp", signUp)</span>
+            console.log("🚀 ~ file: authController.js ~ line 51 ~ signUp: ~ signUp", signUp)
 &nbsp;
-<span class="cstat-no" title="statement not covered" >            if (!signUp) {</span>
+            <span class="missing-if-branch" title="if path not taken" >I</span>if (!signUp) {
 <span class="cstat-no" title="statement not covered" >                return res.status(400).json({</span>
                     status: "failed",
                     message: "Cannot Sign Up"
                 })
             }
 &nbsp;
-<span class="cstat-no" title="statement not covered" >            console.log("🚀 ~ file: authController.js ~ line 64 ~ signUp: ~ signUp", signUp)</span>
+            console.log("🚀 ~ file: authController.js ~ line 64 ~ signUp: ~ signUp", signUp)
 &nbsp;
-<span class="cstat-no" title="statement not covered" >            sendEmail(email, verifCode)</span>
+            sendEmail(email, verifCode)
 &nbsp;
-<span class="cstat-no" title="statement not covered" >            res.status(200).json({</span>
+            res.status(200).json({
                 status: "Success",
                 message: "Succes Sign Up, check your Email",
                 data: signUp
@@ -616,7 +616,7 @@ module.exports = {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Tue Oct 26 2021 11:37:53 GMT+0700 (Western Indonesia Time)
+                at Tue Oct 26 2021 21:47:40 GMT+0700 (Western Indonesia Time)
             </div>
         </div>
         <script src="../../prettify.js"></script>
