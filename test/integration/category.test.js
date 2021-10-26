@@ -1,4 +1,4 @@
-const app = require("../server");
+const app = require("../../server");
 const mongoose = require("mongoose");
 const supertest = require('supertest')
 
@@ -24,12 +24,12 @@ test("GET /api/v1/category", async() => {
 
 test("PUT /api/v1/category/:id", async() => {
     const updateData = {
-        name: "Food",
+        name: "Foods",
     };
     const status = "succses"
 
     await supertest(app)
-        .put("/api/v1/category/6166f00d98472010a2d7e98e")
+        .put("/api/v1/category/6172d7ef0f79346bbb9db5ca")
         .send(updateData)
         .expect(200)
         .then((res) => {

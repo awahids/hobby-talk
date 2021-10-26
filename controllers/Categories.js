@@ -1,15 +1,15 @@
 const Categories = require('../models/Categories');
 module.exports = {
-    create: async (req, res) => {
+    create: async(req, res) => {
         const body = req.body;
-        try{
+        try {
             const categories = await Categories.create(body);
             return res.status(200).json({
                 status: "succes",
                 massage: "Database succesfully",
-                data:categories,
+                data: categories,
             });
-        }catch (error) {
+        } catch (error) {
             console.log(error);
             return res.status(500).json({
                 status: "error",
@@ -17,8 +17,8 @@ module.exports = {
             });
         }
     },
-    readAll: async (req, res) => {
-        try{
+    readAll: async(req, res) => {
+        try {
             const categories = await Categories.find()
             return res.status(200).json({
                 status: "succes",
@@ -34,7 +34,7 @@ module.exports = {
         }
 
     },
-    update: async (req, res) => {
+    update: async(req, res) => {
         const body = req.body
         const id = req.params.Categories
         try {
@@ -46,26 +46,32 @@ module.exports = {
             await categories.save()
 
             return res.status(200).json({
-                status : "succses",
-                data : categories
-            })
-        } catch (error){
-            console.log(error)
-        }
-    },
-    delete: async (req, res) => {
-        const id = req.params.id
-        try {
-            await Categories.deleteOne({_id : id})
-
-            return res.status(200).json({
-                status : "succses",
-                message : "Data deleted succsesfully"
+                status: "succses",
+                data: categories
             })
         } catch (error) {
             console.log(error)
+            return res.status(500).json({
+                status: "error",
+                message: "server Error",
+            });
+        }
+    },
+    delete: async(req, res) => {
+        const id = req.params.id
+        try {
+            await Categories.deleteOne({ _id: id })
+
+            return res.status(200).json({
+                status: "succses",
+                message: "Data deleted succsesfully"
+            })
+        } catch (error) {
+            console.log(error)
+            return res.status(500).json({
+                status: "error",
+                message: "server Error",
+            });
         }
     }
 };
-
-

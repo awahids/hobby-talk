@@ -1,4 +1,4 @@
-const app = require("../server");
+const app = require("../../server");
 const mongoose = require("mongoose");
 const supertest = require('supertest')
 
@@ -13,18 +13,19 @@ afterEach((done) => {
     mongoose.connection.close(() => done());
 });
 
-test("GET /api/v1/reply/616a948727abbfa2c1dab890", async() => {
+
+test("GET /api/v1/comments/616bc1a915f73f8d5d5bbea4", async() => {
     await supertest(app)
-        .get("/api/v1/reply/616a948727abbfa2c1dab890")
+        .get("/api/v1/comments/616bc1a915f73f8d5d5bbea4")
         .expect(200)
         .then((res) => {
             expect(Array.isArray(res.body.data)).toBeTruthy();
         });
 });
 
-test("PUT /api/v1/reply/:id", async() => {
+test("PUT /api/v1/comments/:id", async() => {
     const updateData = {
-        content: "update comment ahh",
+        content: "Gimana nih, saya gak ada orang tua sama gak ada orang deket :(",
     };
     const status = "success"
 
@@ -33,7 +34,7 @@ test("PUT /api/v1/reply/:id", async() => {
         password: "password",
     });
     await supertest(app)
-        .put("/api/v1/reply/616a97e2f8ee71e6330a64b1")
+        .put("/api/v1/comments/616a948727abbfa2c1dab890")
         .set("Authorization", "Bearer " + token.body.data)
         .send(updateData)
         .expect(201)
@@ -42,21 +43,24 @@ test("PUT /api/v1/reply/:id", async() => {
         });
 
 })
-test("DELETE /api/v1/reply/:id", async() => {
+
+
+test("DELETE /api/v1/comment/:id", async() => {
     const data = {
-        content: "ini adalah reply"
+        content: "ini adalah comment"
     };
     const token = await supertest(app).post("/api/v1/users/login").send({
         email: "kuromashiro0123@gmail.com",
         password: "password",
     });
-    const createReply = await supertest(app)
-        .post("/api/v1/reply/616a948727abbfa2c1dab890")
+    const createComment = await supertest(app)
+        .post("/api/v1/comments/616bc1a915f73f8d5d5bbea4")
         .set("Authorization", "Bearer " + token.body.data)
         .send(data)
-    console.log(createReply.body)
+
+
     await supertest(app)
-        .delete("/api/v1/reply/" + createReply.body.data._id)
+        .delete("/api/v1/comments/" + createComment.body.data._id)
         .set("Authorization", "Bearer " + token.body.data)
         .expect(200)
         .then((res) => {

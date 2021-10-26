@@ -1,4 +1,4 @@
-const app = require("../server");
+const app = require("../../server");
 const mongoose = require("mongoose");
 const supertest = require('supertest')
 
@@ -24,7 +24,7 @@ test("GET /api/v1/threads/oldest", async() => {
 
 test("PUT /api/v1/threads/edit/:id", async() => {
     const updateData = {
-        content: "update threads cuy",
+        content: "Aduhai ini mah lagu nasional saya",
     };
     const status = "success"
 
@@ -33,7 +33,7 @@ test("PUT /api/v1/threads/edit/:id", async() => {
         password: "password",
     });
     await supertest(app)
-        .put("/api/v1/threads/edit/616bc20a15f73f8d5d5bbeab")
+        .put("/api/v1/threads/edit/616bc1a915f73f8d5d5bbea4")
         .set("Authorization", "Bearer " + token.body.data)
         .send(updateData)
         .expect(200)
@@ -57,7 +57,7 @@ test("GET /api/v1/threads/search/:keyword", async() => {
 test("GET /api/v1/threads/get/:id", async() => {
     const status = "success"
     await supertest(app)
-        .get("/api/v1/threads/get/616a814e2d9ef9e211bb0328")
+        .get("/api/v1/threads/get/616bc1a915f73f8d5d5bbea4")
         .expect(200)
         .then((res) => {
             expect(res.body.status).toBe(status);
@@ -130,7 +130,7 @@ test("GET /api/v1/threads/mightlike", async() => {
 test("GET /api/v1/threads/relatedtopic/:id", async() => {
     const status = "success"
     await supertest(app)
-        .get("/api/v1/threads/relatedtopic/616a814e2d9ef9e211bb0328")
+        .get("/api/v1/threads/relatedtopic/616bc1a915f73f8d5d5bbea4")
         .expect(200)
         .then((res) => {
             expect(res.body.status).toBe(status);

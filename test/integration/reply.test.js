@@ -1,4 +1,4 @@
-const app = require("../server");
+const app = require("../../server");
 const mongoose = require("mongoose");
 const supertest = require('supertest')
 
@@ -13,18 +13,18 @@ afterEach((done) => {
     mongoose.connection.close(() => done());
 });
 
-test("GET /api/v1/subReply/616a97e2f8ee71e6330a64b1", async() => {
+test("GET /api/v1/reply/616a948727abbfa2c1dab890", async() => {
     await supertest(app)
-        .get("/api/v1/subReply/616a97e2f8ee71e6330a64b1")
+        .get("/api/v1/reply/616a948727abbfa2c1dab890")
         .expect(200)
         .then((res) => {
             expect(Array.isArray(res.body.data)).toBeTruthy();
         });
 });
 
-test("PUT /api/v1/subReply/:id", async() => {
+test("PUT /api/v1/reply/:id", async() => {
     const updateData = {
-        content: "update subReply nih",
+        content: "update comment ahh",
     };
     const status = "success"
 
@@ -33,7 +33,7 @@ test("PUT /api/v1/subReply/:id", async() => {
         password: "password",
     });
     await supertest(app)
-        .put("/api/v1/subReply/616a9e1e4d2b80ab1083d9b7")
+        .put("/api/v1/reply/616a97e2f8ee71e6330a64b1")
         .set("Authorization", "Bearer " + token.body.data)
         .send(updateData)
         .expect(201)
@@ -44,22 +44,22 @@ test("PUT /api/v1/subReply/:id", async() => {
 })
 test("DELETE /api/v1/reply/:id", async() => {
     const data = {
-        content: "ini adalah subReply"
+        content: "ini adalah reply"
     };
     const token = await supertest(app).post("/api/v1/users/login").send({
         email: "kuromashiro0123@gmail.com",
         password: "password",
     });
-    const createSubReply = await supertest(app)
-        .post("/api/v1/subReply/616a97e2f8ee71e6330a64b1")
+    const createReply = await supertest(app)
+        .post("/api/v1/reply/616a948727abbfa2c1dab890")
         .set("Authorization", "Bearer " + token.body.data)
         .send(data)
-    console.log(createSubReply.body)
+    console.log(createReply.body)
     await supertest(app)
-        .delete("/api/v1/subReply/" + createSubReply.body.data._id)
+        .delete("/api/v1/reply/" + createReply.body.data._id)
         .set("Authorization", "Bearer " + token.body.data)
         .expect(200)
         .then((res) => {
             expect(typeof res.body).toBe("object");
         });
-});﻿
+});
