@@ -53,6 +53,7 @@ module.exports = {
                 name,
                 email,
                 avatar: "",
+                bio: "",
                 password: hashPassword,
                 verifCode
             })
