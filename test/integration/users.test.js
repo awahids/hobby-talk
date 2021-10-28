@@ -16,7 +16,7 @@ afterEach((done) => {
 test("POST /api/v1/users/signup", async() => {
     const data = {
         name: "mamang capron",
-        email: "iniemail321@gmail.com",
+        email: "iniemail100@gmail.com",
         password: "password"
     };
     const status = {

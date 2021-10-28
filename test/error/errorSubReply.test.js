@@ -47,3 +47,59 @@ describe("SubReplyController.create", () => {
         expect(res.statusCode).toBe(500);
     });
 });
+
+describe("SubReplyController.readAll", () => {
+
+    // it("should return 400 when item doesnt exist", async() => {
+    //     let id = "123123123"
+    //     let hasil = []
+    //     SubReply.find.mockReturnValue(hasil);
+    //     await SubReplyController.readAllSubReply(req, res, next);
+    //     expect(res.statusCode).toBe(400)
+    //     expect(res._isEndCalled()).toBeTruthy();
+    //     expect(res._getJSONData().message).toBe("cannot find reply")
+    // });
+
+    it("should return 400 when id is not object id", async() => {
+        req.params.replyId = "123123123"
+        await SubReplyController.readAllSubReply(req, res, next)
+        expect(res.statusCode).toBe(400)
+        expect(res._getJSONData().message).toBe("Reply not found or doesn't exist")
+    })
+
+    it("should handle errors in create", async() => {
+        const rejectedPromise = Promise.reject();
+        Reply.findById.mockReturnValue(rejectedPromise);
+        await SubReplyController.readAllSubReply(req, res, next);
+        expect(res.statusCode).toBe(500);
+    });
+});
+
+describe("SubReplyController.update", () => {
+
+    it("should handle errors in create", async() => {
+        const rejectedPromise = Promise.reject();
+        Reply.findById.mockReturnValue(rejectedPromise);
+        await SubReplyController.updateSubReply(req, res, next);
+        expect(res.statusCode).toBe(500);
+    });
+});
+
+describe("SubReplyController.delete", () => {
+
+    it("should return 400 when item doesnt exist", async() => {
+        SubReply.findById.mockReturnValue(null);
+        await SubReplyController.deleteSubReply(req, res, next);
+        expect(res.statusCode).toBe(400)
+        expect(res._isEndCalled()).toBeTruthy();
+        expect(res._getJSONData().message).toBe("cannot delete")
+    });
+
+
+    it("should handle errors in delete", async() => {
+        const rejectedPromise = Promise.reject();
+        SubReply.findById.mockReturnValue(rejectedPromise);
+        await SubReplyController.deleteSubReply(req, res, next);
+        expect(res.statusCode).toBe(500);
+    });
+});

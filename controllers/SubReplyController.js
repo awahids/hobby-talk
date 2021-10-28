@@ -75,7 +75,7 @@ module.exports = {
             } else {
                 return res.status(400).json({
                     status: "failed",
-                    message: "Comment not found or doesn't exist"
+                    message: "Reply not found or doesn't exist"
                 })
             }
         } catch (error) {
