@@ -39,4 +39,11 @@ describe("SubReplyController.create", () => {
         expect(res.statusCode).toBe(400)
         expect(res._getJSONData().message).toBe("Reply not found or doesn't exist")
     })
+
+    it("should handle errors in create", async() => {
+        const rejectedPromise = Promise.reject();
+        Reply.findById.mockReturnValue(rejectedPromise);
+        await SubReplyController.createSubReply(req, res, next);
+        expect(res.statusCode).toBe(500);
+    });
 });
