@@ -12,17 +12,18 @@ module.exports = {
                         message: "cannot found comment"
                     })
                 }
-                if (findComment.likes.filter((e) => e.toString() == userId).length > 0) {
+                if (findComment.likes.filter((e) => e.user.toString() == userId).length > 0) {
                     return res.status(400).json({
                         status: "failed",
                         message: "Comment already liked"
                     })
                 }
-                if (findComment.dislike.filter((e) => e.toString() == userId).length > 0) {
-                    findComment.dislike.pull(userId)
+                if (findComment.dislike.filter((e) => e.user.toString() == userId).length > 0) {
+                    const removeIndex = findComment.dislike.map((d) => d.user.toString()).indexOf(userId);
+                    findComment.dislike.splice(removeIndex, 1);
                 }
 
-                await findComment.likes.unshift(userId)
+                await findComment.likes.unshift({ user: userId })
 
                 await findComment.save()
                 return res.status(200).json({
@@ -56,15 +57,15 @@ module.exports = {
                         message: "cannot found Comment"
                     })
                 }
-                if (findComment.likes.filter((e) => e.toString() == userId).length === 0) {
+                if (findComment.likes.filter((e) => e.user.toString() == userId).length === 0) {
                     return res.status(400).json({
                         status: "failed",
                         message: "Comment has not been liked"
                     })
                 }
 
-                await findComment.likes.pull(userId)
-
+                const removeIndex = findComment.likes.map((l) => l.user.toString()).indexOf(userId);
+                findComment.likes.splice(removeIndex, 1);
                 await findComment.save()
                 return res.status(200).json({
                     status: "success",
@@ -98,17 +99,18 @@ module.exports = {
                         message: "cannot found Comment"
                     })
                 }
-                if (findComment.dislike.filter((e) => e.toString() == userId).length > 0) {
+                if (findComment.dislike.filter((e) => e.user.toString() == userId).length > 0) {
                     return res.status(400).json({
                         status: "failed",
                         message: "Comment already disliked"
                     })
                 }
-                if (findComment.likes.filter((e) => e.toString() == userId).length > 0) {
-                    findComment.likes.pull(userId)
+                if (findComment.likes.filter((e) => e.user.toString() == userId).length > 0) {
+                    const removeIndex = findComment.likes.map((l) => l.user.toString()).indexOf(userId);
+                    findComment.likes.splice(removeIndex, 1);
                 }
 
-                await findComment.dislike.unshift(userId)
+                await findComment.dislike.unshift({ user: userId })
 
                 await findComment.save()
                 return res.status(200).json({
@@ -143,15 +145,15 @@ module.exports = {
                         message: "cannot found Comment"
                     })
                 }
-                if (findComment.dislike.filter((e) => e.toString() == userId).length == 0) {
+                if (findComment.dislike.filter((e) => e.user.toString() == userId).length == 0) {
                     return res.status(400).json({
                         status: "failed",
                         message: "Comment has not been disliked"
                     })
                 }
 
-                await findComment.dislike.pull(userId)
-
+                const removeIndex = findComment.dislike.map((d) => d.user.toString()).indexOf(userId);
+                findComment.dislike.splice(removeIndex, 1);
                 await findComment.save()
                 return res.status(200).json({
                     status: "success",

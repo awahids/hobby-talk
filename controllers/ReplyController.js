@@ -178,18 +178,19 @@ module.exports = {
                     })
                 }
 
-                if (findReply.likes.filter((e) => e.toString() == userId).length > 0) {
+                if (findReply.likes.filter((e) => e.user.toString() == userId).length > 0) {
                     return res.status(400).json({
                         status: "Failled",
                         message: "Reply already liked"
                     })
                 }
 
-                if (findReply.dislike.filter((e) => e.toString() == userId).length > 0) {
-                    findReply.dislike.pull(userId)
+                if (findReply.dislike.filter((e) => e.user.toString() == userId).length > 0) {
+                    const removeIndex = findReply.dislike.map((d) => d.user.toString()).indexOf(userId);
+                    findReply.dislike.splice(removeIndex, 1);
                 }
 
-                await reply.likes.unshif(userId)
+                await findReply.likes.unshift({ user: userId })
 
                 await findReply.save()
 
@@ -224,14 +225,15 @@ module.exports = {
                         message: "cannot found thread"
                     })
                 }
-                if (findReply.likes.filter((e) => e.toString() == userId).length === 0) {
+                if (findReply.likes.filter((e) => e.user.toString() == userId).length === 0) {
                     return res.status(400).json({
                         status: "failed",
                         message: "reply has not been liked"
                     })
                 }
 
-                await findReply.likes.pull(userId)
+                const removeIndex = findReply.likes.map((l) => l.user.toString()).indexOf(userId);
+                findReply.likes.splice(removeIndex, 1);
 
                 await findReply.save()
                 return res.status(200).json({
@@ -266,17 +268,18 @@ module.exports = {
                         message: "cannot found thread"
                     })
                 }
-                if (findReply.dislike.filter((e) => e.toString() == userId).length > 0) {
+                if (findReply.dislike.filter((e) => e.user.toString() == userId).length > 0) {
                     return res.status(400).json({
                         status: "failed",
                         message: "reply already disliked"
                     })
                 }
-                if (findReply.likes.filter((e) => e.toString() == userId).length > 0) {
-                    findReply.likes.pull(userId)
+                if (findReply.likes.filter((e) => e.user.toString() == userId).length > 0) {
+                    const removeIndex = findReply.likes.map((l) => l.user.toString()).indexOf(userId);
+                    findReply.likes.splice(removeIndex, 1);
                 }
 
-                await findReply.dislike.unshift(userId)
+                await findReply.dislike.unshift({ user: userId })
 
                 await findReply.save()
                 return res.status(200).json({
@@ -311,14 +314,15 @@ module.exports = {
                         message: "cannot found thread"
                     })
                 }
-                if (findReply.dislike.filter((e) => e.toString() == userId).length == 0) {
+                if (findReply.dislike.filter((e) => e.user.toString() == userId).length == 0) {
                     return res.status(400).json({
                         status: "failed",
                         message: "reply has not been disliked"
                     })
                 }
 
-                await findReply.dislike.pull(userId)
+                const removeIndex = findReply.dislike.map((d) => d.user.toString()).indexOf(userId);
+                findReply.dislike.splice(removeIndex, 1);
 
                 await findReply.save()
                 return res.status(200).json({

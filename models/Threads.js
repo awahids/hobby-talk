@@ -22,13 +22,32 @@ const ThreadsSchema = new Schema({
         ref: "Category"
     },
     likes: [{
-        type: Schema.Types.ObjectId,
-        ref: "Users"
+        user: {
+            type: Schema.Types.ObjectId,
+            ref: "Users"
+        },
+        date: {
+            type: Date,
+            default: Date.now,
+        }
     }],
     dislike: [{
-        type: Schema.Types.ObjectId,
-        ref: "Users"
+        user: {
+            type: Schema.Types.ObjectId,
+            ref: "Users"
+        },
+        date: {
+            type: Date,
+            default: Date.now,
+        }
     }], //=========================
+    total: {
+        type: Number
+    },
+    status: {
+        type: String,
+        default: "none"
+    },
     comment: [{
         type: Schema.Types.ObjectId,
         ref: "Comments"
@@ -46,13 +65,13 @@ ThreadsSchema.virtual('commentCount', {
 })
 ThreadsSchema.virtual('likeCount', {
     ref: "Threads",
-    localField: "likes",
+    localField: "likes.user",
     foreignField: "Users",
     count: true
 })
 ThreadsSchema.virtual('dislikeCount', {
     ref: "Threads",
-    localField: "dislike",
+    localField: "dislike.user",
     foreignField: "Users",
     count: true
 })

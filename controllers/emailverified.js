@@ -4,7 +4,7 @@ const hbs = require('nodemailer-express-handlebars')
 const Jwt = require('jsonwebtoken')
 
 module.exports = {
-    sendEmail: async (email, verifCode) => {
+    sendEmail: async(email, verifCode) => {
         let link
 
         const transporter = nodeMailer.createTransport({
@@ -15,41 +15,63 @@ module.exports = {
             }
         })
 
-        transporter.use(
-            "compile",
-            hbs({
-                viewEngine: {
-                    extname: ".hbs",
-                    partialsDir: '../backendhobbytalk/templates/',
-                    layoutsDir: '../backendhobbytalk/templates/',
-                    defaultLayout: 'email'
-                },
-                viewPath: '../backendhobbytalk/templates/',
-                extName: '.hbs'
-            })
-        )
+        // transporter.use(
+        //     "compile",
+        //     hbs({
+        //         viewEngine: {
+        //             extname: ".hbs",
+        //             partialsDir: '../templates/',
+        //             layoutsDir: '../templates/',
+        //             defaultLayout: 'email'
+        //         },
+        //         viewPath: '../templates/',
+        //         extName: '.hbs'
+        //     })
+        // )
 
-        link = `http://localhost:5000/api/v1/users/verif?email=${email}&verifCode=${verifCode}`
+        link = `https://hobbytalk-be-glints.herokuapp.com/api/v1/users/verif?email=${email}&verifCode=${verifCode}`
         let mailOptions = {
             from: process.env.EMAIL,
             to: `${email}`,
             subject: "verified account Hobby Talks",
-            template: `email`,
-            context: {link}
+            html: `<div class="card mb-3" style="max-width: 540px; margin-left: auto; margin-right: auto; border: 5px solid #58595B; border-radius:5%;">
+                <div class="row no-gutters" style="text-align: center;">
+                    <div class="col-md-4" style="text-align: center;">
+                        <h1 style="text-align: center;">Hobby Talk</h1>
+                        <img src="https://res.cloudinary.com/awhds/image/upload/v1634177847/hobbytalk/Vector_5_ctfkdc.png" class="logo-footer" style="height: 250px;">
+                    </div>
+                    <div class="col-md-8" style="text-align: center;">
+                        <div class="card-body" style="text-align: center;">
+                            <hr>
+                            <h2 class="card-title">Account Info:</h2>
+                            <p class="card-text">Email: ${email}</p>
+                        </div>
+                        <div class="card-body" style="text-align: center;">
+                            <p class="card-text">Please click button for verification</p>
+                            <a href="${link}">Click here</a>
+                        </div>
+                    <h6 style="color: grey; text-align: center;">© Hobby Talk 2021. All rights reserved</h6>
+                    </div>
+                </div>
+            </div>`,
+            // context: {
+            //     email,
+            //     link
+            // }
         }
 
         transporter.sendMail(mailOptions, (error, info) => {
-            if(error){
+            if (error) {
                 console.log(error)
-            }else{
+            } else {
                 console.log("Message sent: " + info.response)
             }
         })
     },
 
-    verifAcc: async (req, res) => {
+    verifAcc: async(req, res) => {
         try {
-            const {email, verifCode} = req.query
+            const { email, verifCode } = req.query
 
             const user = await User.findOne({
                 email: email,
@@ -71,7 +93,7 @@ module.exports = {
 
             user.isVerified = true
             await user.save()
-            
+
             //mengubah jadi token
             const payload = {
                 id: user._id,
@@ -79,13 +101,7 @@ module.exports = {
             }
 
             //method sign dari jwt
-            Jwt.sign(payload, process.env.PWD_TOKEN, {expiresIn: 3600 * 24}, (error, token) => {
-                res.status(200).json({
-                    status: "success",
-                    message: "Account verification success",
-                    data: token
-                })
-            })
+            res.redirect('https://dev-hoobytalks.herokuapp.com/login')
 
         } catch (error) {
             console.log(error)

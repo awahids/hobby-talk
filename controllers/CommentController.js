@@ -26,7 +26,8 @@ module.exports = {
                 await threads.save()
                 return res.status(201).json({
                     status: "success",
-                    message: "Comment created successfully"
+                    message: "Comment created successfully",
+                    data: saveComment
                 });
             } else {
                 return res.status(400).json({
@@ -52,10 +53,27 @@ module.exports = {
                 const findComments = await comment.find({ threadId: id })
                 const comments = await comment.find({ threadId: id }).populate({
                     path: "reply",
-                    populate: ({
+                    populate: ([{
                         path: "subReply",
                         models: "SubReply",
-                    })
+                        populate: ({
+                            path: "userId",
+                            models: "Users",
+                            select: {
+                                "name": 1,
+                                "email": 1,
+                                "avatar": 1
+                            }
+                        })
+                    }, {
+                        path: "userId",
+                        models: "Users",
+                        select: {
+                            "name": 1,
+                            "email": 1,
+                            "avatar": 1
+                        }
+                    }])
                 }).populate([{
                     path: "userId",
                     models: "Users",
