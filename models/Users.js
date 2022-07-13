@@ -8,8 +8,7 @@ const UsersSchema = new Schema({
     },
     email: {
         type: String,
-        required: true,
-        unique: true,
+        unique: true
     },
     password: {
         type: String,
@@ -22,6 +21,13 @@ const UsersSchema = new Schema({
         type: String,
     },
     bio: {
+        type: String
+    },
+    isVerified: {
+        type: Boolean,
+        default: false
+    },
+    verifCode: {
         type: String
     },
     categoryLike: [{
@@ -37,7 +43,5 @@ const UsersSchema = new Schema({
         ref: "Threads"
     }]
 })
-
-
 
 module.exports = Users = mongoose.model('Users', UsersSchema);
